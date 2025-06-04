@@ -12,13 +12,16 @@ public class EnemyBase : MonoBehaviour , IPoolable
     public float Damage = 10f;
     public float Speed = 2f;
 
-    protected Vector3 targetPosition;
+    [Header("Spawn")]
+    [SerializeField]private Vector3 spawnPosition;
+    [SerializeField]private Vector3 targetPosition;
     protected EnemyState state = EnemyState.Move;
 
-    public virtual void Initialize(Vector3 spawnPos, Vector3 targetPos)
+    public virtual void Init()
     {
-        transform.position = spawnPos;
-        targetPosition = targetPos;
+        spawnPosition = new Vector3(0, -5f, 0);
+        targetPosition = new Vector3(0, 3f, 0); 
+        transform.position = spawnPosition;
         state = EnemyState.Move;
         gameObject.SetActive(true);
     }
@@ -37,9 +40,10 @@ public class EnemyBase : MonoBehaviour , IPoolable
 
     protected void MoveToTarget()
     {
-        transform.position = Vector3.MoveTowards(transform.position, Vector3.up, Speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + Vector3.up, Speed * Time.deltaTime);
         if (Vector3.Distance(transform.position, targetPosition) <= 0.1f)
         {
+
             state = EnemyState.Attack;
             OnEnterAttackState();
         }
@@ -55,7 +59,7 @@ public class EnemyBase : MonoBehaviour , IPoolable
 
     public virtual void OnSpawn()
     {
-        Initialize(new Vector3(0,-10,0),new Vector3(0,10,0));
+        Init();
     }
     public virtual void OnDespawn()
     {

@@ -73,7 +73,6 @@ public class PoolManager : MonoBehaviour
         }
 
         GameObject prefab = prefabCache[key].gameObject;
-        Debug.Log($"Spawning prefab: {prefab.name} with key: {key}");
         string prefabName = prefab.gameObject.name;
 
         if (!poolNames.ContainsKey(prefabName))
@@ -82,7 +81,6 @@ public class PoolManager : MonoBehaviour
             GameObject poolParentObj = new GameObject(prefabName + "Pool");
             poolParentObj.transform.SetParent(this.transform);
             poolParents[prefabName] = poolParentObj.transform;
-            Debug.Log($"Created new pool for prefab: {prefabName}");
         }
 
         T obj;

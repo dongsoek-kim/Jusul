@@ -2,14 +2,17 @@ using UnityEngine;
 
 public class NormalMonster : EnemyBase
 {
-    private float timer = 15f;
+    private float timer = 2f;
     protected override void Update()
     {
         base.Update();
-        timer -= Time.deltaTime;
-        if (timer <= 0f)
+        if (state == EnemyState.Attack)
         {
-            PoolManager.Instance.Despawn(this);
+            timer -= Time.deltaTime;
+            if (timer <= 0f)
+            {
+                PoolManager.Instance.Despawn(this);
+            }
         }
 
     }
@@ -25,7 +28,7 @@ public class NormalMonster : EnemyBase
     public override void OnSpawn()
     {
         base.OnSpawn();
-        timer = 15f; // Reset timer on spawn
+        timer = 2f; // Reset timer on spawn
     }
     public override void OnDespawn()
     {
