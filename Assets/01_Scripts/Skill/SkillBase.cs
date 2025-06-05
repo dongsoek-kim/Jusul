@@ -9,13 +9,20 @@ public interface ISkill
 }
 public class SkillBase : MonoBehaviour, ISkill
 {
-    // Start is called before the first frame update
+    [Header("스킬데이터")]
+    public Skill skillName;
+    public SkillGrade skillGrade;
+    public ElementType elementType;
+    public int attackPower;
+    public int stack;
+    public float cooldown;
+    public float timer;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         

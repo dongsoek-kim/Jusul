@@ -1,11 +1,5 @@
 using UnityEngine;
 
-public enum EnemyState
-{
-    Move,
-    Attack
-}
-
 public class EnemyBase : MonoBehaviour , IPoolable
 {
     public float Hp = 100f;
