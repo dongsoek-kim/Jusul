@@ -18,6 +18,7 @@ public class SkillBase : MonoBehaviour, ISkill
     public float cooldown;
     public float timer;
 
+    
     void Start()
     {
         
@@ -28,6 +29,11 @@ public class SkillBase : MonoBehaviour, ISkill
         
     }
 
+    protected void init()
+    {
+        //초기화함수
+
+    }
     public virtual void Active()
     {
         Debug.Log("Skill Activated");
