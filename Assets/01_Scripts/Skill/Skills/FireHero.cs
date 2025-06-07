@@ -4,6 +4,5 @@ public class FireHero : ISkillBehaviour
 {
     public void Execute(SkillBase skill)
     {
-        Debug.Log("FireHero 발사!");
     }
 }

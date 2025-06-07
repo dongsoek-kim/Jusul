@@ -6,11 +6,14 @@ public class SkillManager : MonoBehaviour
 {
     public static SkillManager Instance { get; private set; }
 
+    [Header("Skill Elements")]
+    private SkillCreatHandler skillCreatHandler;
+
     [Header("정적 데이터")]
-    public List<SkillData> SkillData;
+    [SerializeField] private List<SkillData> SkillData;
 
     [Header("런타임 스킬 오브젝트")]
-    public SkillBase skillPrefab;  
+    [SerializeField]private SkillBase skillPrefab;  
     [SerializeField]private SkillBase[] activeSkillObjects = new SkillBase[18];
 
     [Header("업그레이드")]
@@ -43,6 +46,8 @@ public class SkillManager : MonoBehaviour
             instance.Init(SkillData[i]);
             activeSkillObjects[i] = instance;
         }
+
+        skillCreatHandler = new SkillCreatHandler();
     }
 
     private void Start()
@@ -63,8 +68,12 @@ public class SkillManager : MonoBehaviour
         return Activator.CreateInstance(type) as ISkillBehaviour;
     }
 
-
-
+    public void CreateSkill()
+    {
+        int index = skillCreatHandler.SkillCreat();
+        IncreaseStack(index);
+        UIManager.Instance.skillUI.UpdateSkillUI(index, activeSkillObjects[index].Stack);
+    }
     public void IncreaseStack(int index)
     {
         activeSkillObjects[index].AddStack();

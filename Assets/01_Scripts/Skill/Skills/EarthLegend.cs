@@ -4,6 +4,5 @@ public class EarthLegend : ISkillBehaviour
 {
     public void Execute(SkillBase skill)
     {
-        Debug.Log("EarthLegend 발사!");
     }
 }

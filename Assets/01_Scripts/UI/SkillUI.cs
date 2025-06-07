@@ -8,11 +8,13 @@ public class SkillUI : MonoBehaviour
 {
     [Header("업그레이드레벨")]
     public TextMeshProUGUI[] upgradeLevelText;
+    
     [Header("스킬버튼")]
     public Button[] skillButtons;
     public TextMeshProUGUI[] skillStackText;
     // Start is called before the first frame update
     public Button clickedButton;
+
 
     [Header("스킬설명")]
     public GameObject skillDescriptionPanel;
@@ -24,7 +26,7 @@ public class SkillUI : MonoBehaviour
     public TextMeshProUGUI skillElementType;
     public TextMeshProUGUI skillDescription;
 
-    private void Awake()
+    public void Init()
     {
         for (int i = 0; i < skillStackText.Length; i++)
         {
@@ -51,14 +53,11 @@ public class SkillUI : MonoBehaviour
             Debug.Log("Skill Button " + i + " clicked");
         }
     }
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateSkillUI(int index, int stackCount)
     {
-        
+        if (stackCount==0) skillStackText[index].text = "";
+       else skillStackText[index].text = stackCount.ToString();
+
     }
 }

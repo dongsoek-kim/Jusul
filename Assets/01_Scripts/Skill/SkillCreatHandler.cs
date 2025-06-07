@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class SkillCreatHandler : MonoBehaviour
+public class SkillCreatHandler
 {
     private static readonly Dictionary<int, float[]> gradeChancesByLevel = new()
     {
@@ -14,15 +14,16 @@ public class SkillCreatHandler : MonoBehaviour
         { 5, new float[] { 35.2f, 45f, 15f, 4f, 0.5f, 0.3f } },
     };
 
-    public int skillIndex;
-    public int elementType;
-    public int skillGrade;
+    private int skillIndex;
+    private int elementType;
+    private int skillGrade;
 
-    public void SkillCreat()
+    public int SkillCreat()
     {
         elementType = Random.Range(0,2);
         skillGrade = GradeCarculator();
         skillIndex= elementType * 6 + skillGrade;
+        return skillIndex;
     }
 
     public int GradeCarculator()
