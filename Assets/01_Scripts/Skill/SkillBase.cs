@@ -6,7 +6,7 @@ public class SkillBase : MonoBehaviour, ISkil
 {
     [Header("스킬데이터")]
     public SkillData skillData; 
-    public int stack;
+    public int Stack{ get; private set; }
     private float timer;
     private bool isActive;
 
@@ -23,7 +23,6 @@ public class SkillBase : MonoBehaviour, ISkil
             if (timer <= 0f)
             {
                 skillData.behaviour.Execute(this);
-                //timer = skillData.cooldown/stack;
             }
         }
     }
@@ -40,5 +39,13 @@ public class SkillBase : MonoBehaviour, ISkil
     {
         isActive = false;
         Debug.Log("Skill Deactivated");
+    }
+
+    public virtual void AddStack()
+    {
+        Stack++;
+        float reductionRatio = Mathf.Min(Stack - 1, 2) * 0.15f; 
+        timer = skillData.cooldown * (1f - reductionRatio);
+        Debug.Log($"Stack added: {Stack}");
     }
 }

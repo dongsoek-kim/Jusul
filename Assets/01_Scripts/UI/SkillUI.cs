@@ -26,9 +26,9 @@ public class SkillUI : MonoBehaviour
 
     private void Awake()
     {
-        for (int i = 0; i < upgradeLevelText.Length; i++)
+        for (int i = 0; i < skillStackText.Length; i++)
         {
-            upgradeLevelText[i].text = "";
+            skillStackText[i].text = "";
         }
         for (int i = 0; i < skillButtons.Length; i++)
         {

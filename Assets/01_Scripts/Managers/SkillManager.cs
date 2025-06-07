@@ -4,15 +4,34 @@ using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
+    public static SkillManager Instance { get; private set; }
+
     [Header("정적 데이터")]
     public List<SkillData> SkillData;
 
     [Header("런타임 스킬 오브젝트")]
     public SkillBase skillPrefab;  
-    [SerializeField]private SkillBase[] activeSkillObjects = new SkillBase[18];  
+    [SerializeField]private SkillBase[] activeSkillObjects = new SkillBase[18];
+
+    [Header("업그레이드")]
+    public int earthUpgradeLevel=1;
+    public int fireUpgradeLevel = 1;
+    public int waterUpgradeLevel = 1;
+
+    public int summonLevel = 1;
 
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         foreach (var data in SkillData)
         {
             data.behaviour = CreateBehaviour(data.skillEnum);
@@ -45,26 +64,15 @@ public class SkillManager : MonoBehaviour
     }
 
 
-    public void ActivateSkill(Skill skill)
+
+    public void IncreaseStack(int index)
     {
-        int index = (int)skill;
-        var skillObj = activeSkillObjects[index];
-        if (!skillObj.gameObject.activeSelf)
+        activeSkillObjects[index].AddStack();
+
+        if (activeSkillObjects[index].Stack == 1)
         {
-            skillObj.gameObject.SetActive(true);
-            Debug.Log($"{skill} 활성화됨");
+            activeSkillObjects[index].Active();
         }
     }
-
-    //public void IncreaseStack(Skill skill)
-    //{
-    //    int index = (int)skill;
-    //    SkillData[index].stack++;
-
-    //    if (SkillData[index].stack == 1)
-    //    {
-    //        ActivateSkill(skill);
-    //    }
-    //}
 }
 
