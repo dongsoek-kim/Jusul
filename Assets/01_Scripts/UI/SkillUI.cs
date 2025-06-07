@@ -12,7 +12,6 @@ public class SkillUI : MonoBehaviour
     [Header("스킬버튼")]
     public Button[] skillButtons;
     public TextMeshProUGUI[] skillStackText;
-    // Start is called before the first frame update
     public Button clickedButton;
 
 
@@ -41,16 +40,13 @@ public class SkillUI : MonoBehaviour
 
     public void OnSkillButtonClicked(int i)
     {
-        Debug.Log("Skill Button " + i + " clicked");
         if (clickedButton != null && clickedButton == skillButtons[i])
         {
-            Debug.Log("Skill Button " + i + " already clicked");
             clickedButton = null;
         }
         else
         {
             clickedButton = skillButtons[i];
-            Debug.Log("Skill Button " + i + " clicked");
         }
     }
 
@@ -58,6 +54,5 @@ public class SkillUI : MonoBehaviour
     {
         if (stackCount==0) skillStackText[index].text = "";
        else skillStackText[index].text = stackCount.ToString();
-
     }
 }

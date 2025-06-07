@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillEnum: 8
   grade: 2
-  attackPower: 0
-  range: 0
-  cooldown: 0
+  attackPower: 9600
+  range: 3
+  cooldown: 8
   elementType: 1
   projectilePrefab: {fileID: 0}

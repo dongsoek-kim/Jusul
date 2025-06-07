@@ -16,12 +16,14 @@ public class SkillManager : MonoBehaviour
     [SerializeField]private SkillBase skillPrefab;  
     [SerializeField]private SkillBase[] activeSkillObjects = new SkillBase[18];
 
+
     [Header("업그레이드")]
     public int earthUpgradeLevel=1;
     public int fireUpgradeLevel = 1;
     public int waterUpgradeLevel = 1;
 
-    public int summonLevel = 1;
+    public int createLevel = 1;
+    public int SkillAmount { get; private set; } = 0;
 
     void Awake()
     {
@@ -70,9 +72,17 @@ public class SkillManager : MonoBehaviour
 
     public void CreateSkill()
     {
-        int index = skillCreatHandler.SkillCreat();
-        IncreaseStack(index);
-        UIManager.Instance.skillUI.UpdateSkillUI(index, activeSkillObjects[index].Stack);
+        if (skillCreatHandler.CanCreat())
+        {
+            GameManager.Instance.UseMoney(skillCreatHandler.RequirementMoney);
+
+            int index = skillCreatHandler.SkillCreat();
+            IncreaseStack(index);
+            SkillAmount++;
+            UIManager.Instance.SkillUIUdate(index, activeSkillObjects[index].Stack, skillCreatHandler.RequirementMoney);
+            skillCreatHandler.AddRequirementMoney();
+        }
+
     }
     public void IncreaseStack(int index)
     {

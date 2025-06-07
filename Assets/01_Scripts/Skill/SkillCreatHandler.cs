@@ -18,6 +18,9 @@ public class SkillCreatHandler
     private int elementType;
     private int skillGrade;
 
+    public int RequirementMoney { get; private set; } = 20;
+    private int maxSkillAmount = 25;
+
     public int SkillCreat()
     {
         elementType = Random.Range(0,2);
@@ -28,7 +31,7 @@ public class SkillCreatHandler
 
     public int GradeCarculator()
     {
-        int summonLevel = SkillManager.Instance.summonLevel;
+        int summonLevel = SkillManager.Instance.createLevel;
         float[] chances = gradeChancesByLevel[summonLevel];
 
         float roll = Random.value * 100f;
@@ -43,5 +46,25 @@ public class SkillCreatHandler
             }
         }
         return 0;
+    }
+
+    public bool CanCreat()
+    {
+        if (SkillManager.Instance.SkillAmount >= maxSkillAmount)
+        {
+            UIManager.Instance.Alarm("스킬 최대 생성량 도달");
+            return false; 
+        }
+        if (GameManager.Instance.Money < RequirementMoney)
+        {
+            UIManager.Instance.Alarm("돈이 부족합니다");
+            return false;
+        }
+        return true;
+    }
+
+    public void AddRequirementMoney()
+    {
+        RequirementMoney ++;
     }
 }

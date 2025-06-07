@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,8 @@ public class UIManager : MonoBehaviour
 
     [Header("UI Elements")]
     public SkillUI skillUI;
-    public UnderBarUI underBarUI;
+    public ButtonUI buttonUI;
+    public InformationUI informationUI;
     private void Awake()
     {
         if (Instance == null)
@@ -21,8 +23,27 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
+    }
+    private void Start()
+    { 
         skillUI.Init();
-        underBarUI.Init();
+        buttonUI.Init();
+        informationUI.Init();
+    }
+
+    public void SkillUIUdate(int index,int stack,int requirementMoney)
+    {
+        skillUI.UpdateSkillUI(index, stack);
+        informationUI.UpdateSkillAmount();
+        buttonUI.UpdateSkillCreateGold(requirementMoney);
+    }
+    public void Alarm(string text)
+    {
+        informationUI.Alarm(text);
+    }
+
+    public void UpdateMoneyText(int money)
+    {
+        informationUI.UpdateMoneyText(money);
     }
 }
