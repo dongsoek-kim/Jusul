@@ -5,6 +5,8 @@ public class EnemyBase : MonoBehaviour , IPoolable
     public float Hp = 100f;
     public float Damage = 10f;
     public float Speed = 2f;
+    public float AttackCooldown = 1f;
+    public int dropMoney;
 
     [Header("Spawn")]
     [SerializeField]private Vector3 spawnPosition;
@@ -13,9 +15,11 @@ public class EnemyBase : MonoBehaviour , IPoolable
 
     public virtual void Init()
     {
+
         spawnPosition = new Vector3(0, -5f, 0);
-        targetPosition = new Vector3(0, 3f, 0); 
+        targetPosition = new Vector3(0, 3.5f, 0); 
         transform.position = spawnPosition;
+        Hp = 100+(100*GameManager.Instance.CurrentWave);
         state = EnemyState.Move;
         gameObject.SetActive(true);
     }
@@ -28,7 +32,11 @@ public class EnemyBase : MonoBehaviour , IPoolable
         }
         else if (state == EnemyState.Attack)
         {
-            OnAttack();
+            if (Time.time >= AttackCooldown)
+            {
+                Attack();
+                AttackCooldown = Time.time + 1f; // Reset cooldown
+            }
         }
     }
 
@@ -39,17 +47,9 @@ public class EnemyBase : MonoBehaviour , IPoolable
         {
 
             state = EnemyState.Attack;
-            OnEnterAttackState();
         }
     }
 
-    protected virtual void OnEnterAttackState()
-    {
-    }
-
-    protected virtual void OnAttack()
-    {
-    }
 
     public virtual void OnSpawn()
     {
@@ -57,7 +57,25 @@ public class EnemyBase : MonoBehaviour , IPoolable
     }
     public virtual void OnDespawn()
     {
-
     }
 
+    public void Attack()
+    {
+        GameManager.Instance.player.TakeDamage(Damage);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        Debug.Log($"Enemy took {damage} damage. Remaining HP: {Hp - damage}");
+        Hp -= damage;
+        if (Hp <= 0)
+        {
+            Die();
+        }
+    }
+
+    protected virtual void Die()
+    {
+        PoolManager.Instance.Despawn(this);
+    }
 }

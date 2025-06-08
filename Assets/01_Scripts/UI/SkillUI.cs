@@ -42,17 +42,37 @@ public class SkillUI : MonoBehaviour
     {
         if (clickedButton != null && clickedButton == skillButtons[i])
         {
+            Debug.Log("같은버튼눌렀다");
+            skillDescriptionPanel.SetActive(false);
+            if(i%6!=5)SkillManager.Instance.CombinSkill(i);
             clickedButton = null;
         }
         else
         {
+            Debug.Log("다른버튼눌렀다");
             clickedButton = skillButtons[i];
+            skillDescriptionPanel.SetActive(true);
+            skillName.text = SkillManager.Instance.GetSkillName(i);
+            skillGrade.text = SkillManager.Instance.GetSkillGrade(i);
+            skillAttackPower.text = SkillManager.Instance.GetSkillAttackPower(i);
+            skillRange.text = SkillManager.Instance.GetSkillRange(i);
+            skillCooldown.text = SkillManager.Instance.GetSkillCooldown(i);
+            skillElementType.text = SkillManager.Instance.GetSkillElementType(i);
+            skillDescription.text = SkillManager.Instance.GetSkillDescription(i);
         }
     }
-
     public void UpdateSkillUI(int index, int stackCount)
     {
-        if (stackCount==0) skillStackText[index].text = "";
-       else skillStackText[index].text = stackCount.ToString();
+        if (stackCount == 0)
+        {
+            skillStackText[index].text = "";
+            skillButtons[index].GetComponent<Image>().color = new Color(0.7f,0.7f,0.7f);
+        }
+        else
+        {
+            skillStackText[index].text = stackCount.ToString();
+            skillButtons[index].GetComponent<Image>().color = Color.white;
+
+        }
     }
 }

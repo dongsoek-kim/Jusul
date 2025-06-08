@@ -46,4 +46,12 @@ public class UIManager : MonoBehaviour
     {
         informationUI.UpdateMoneyText(money);
     }
+    public void UpdateWave(int wave)
+    {
+        informationUI.UpdateWave(wave);
+    }
+    public void UpdateWaveTimer(string timeText)
+    {
+        informationUI.UpdateWaveTimer(timeText);
+    }
 }

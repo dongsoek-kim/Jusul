@@ -15,7 +15,9 @@ MonoBehaviour:
   skillEnum: 12
   grade: 0
   attackPower: 180
-  range: 8
+  range: 6
   cooldown: 0.8
   elementType: 2
+  description: "\uBB3C\uBC29\uC6B8\uC744 \uB358\uC838 \uCC98\uC74C \uB9DE\uB294 \uC801\uC5D0\uAC8C
+    \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4."
   projectilePrefab: {fileID: 0}

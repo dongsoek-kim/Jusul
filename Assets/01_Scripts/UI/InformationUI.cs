@@ -53,4 +53,14 @@ public class InformationUI : MonoBehaviour
     {
         money.text = moneyAmount.ToString();
     }
+
+    public void UpdateWave(int wave)
+    {
+        waveNum.text = wave.ToString();
+    }
+
+    public void UpdateWaveTimer(string timeText)
+    {
+        waveTime.text = timeText;
+    }
 }

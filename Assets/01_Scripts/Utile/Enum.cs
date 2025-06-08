@@ -7,9 +7,10 @@ public enum PrefabType
 {
     //몬스터
     BossMonster,
-    NormalMonster
+    NormalMonster,
 
     //스킬프리펩
+    ProjectileBase,
 }
 
 public enum SkillGrade

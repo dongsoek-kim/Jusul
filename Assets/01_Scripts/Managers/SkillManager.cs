@@ -54,7 +54,6 @@ public class SkillManager : MonoBehaviour
 
     private void Start()
     {
-        activeSkillObjects[3].Active();
     }
     public ISkillBehaviour CreateBehaviour(Skill skill)
     {
@@ -79,10 +78,28 @@ public class SkillManager : MonoBehaviour
             int index = skillCreatHandler.SkillCreat();
             IncreaseStack(index);
             SkillAmount++;
-            UIManager.Instance.SkillUIUdate(index, activeSkillObjects[index].Stack, skillCreatHandler.RequirementMoney);
             skillCreatHandler.AddRequirementMoney();
+            UIManager.Instance.SkillUIUdate(index, activeSkillObjects[index].Stack, skillCreatHandler.RequirementMoney);
+           
         }
 
+    }
+
+    public void CombinSkill(int index)
+    {
+        if (activeSkillObjects[index].Stack < 3) return;
+        else
+        {
+            activeSkillObjects[index].RemoveStack();
+            SkillAmount-=3;
+            UIManager.Instance.SkillUIUdate(index, activeSkillObjects[index].Stack, skillCreatHandler.RequirementMoney);
+            int newGrade = (index%6)+1;
+            int newElement = UnityEngine.Random.Range(0, 3); 
+            int newIndex = newElement * 6 + newGrade;
+            IncreaseStack(newIndex);
+            SkillAmount++;
+            UIManager.Instance.SkillUIUdate(newIndex, activeSkillObjects[newIndex].Stack, skillCreatHandler.RequirementMoney);
+        }
     }
     public void IncreaseStack(int index)
     {
@@ -92,6 +109,40 @@ public class SkillManager : MonoBehaviour
         {
             activeSkillObjects[index].Active();
         }
+    }
+
+    public string GetSkillName(int index)
+    {
+        return activeSkillObjects[index].skillData.skillEnum.ToString();
+    }
+    public string GetSkillGrade(int index)
+    {
+        return activeSkillObjects[index].skillData.grade.ToString();
+    }
+    public string GetSkillAttackPower(int index)
+    {
+        return activeSkillObjects[index].skillData.attackPower.ToString();
+    }
+    public string GetSkillCooldown(int index)
+    {
+        return activeSkillObjects[index].AdaptedCooldown.ToString();
+    }
+    public string GetSkillRange(int index)
+    {
+        return activeSkillObjects[index].skillData.range switch
+        {
+            > 5 => "원거리",
+            < 5 => "근거리",
+            _ => "중거리"
+        };
+    }
+    public string GetSkillElementType(int index)
+    {
+        return activeSkillObjects[index].skillData.elementType.ToString();
+    }
+    public string GetSkillDescription(int index)
+    {
+        return activeSkillObjects[index].skillData.description;
     }
 }
 

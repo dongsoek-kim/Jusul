@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-
+[Serializable]
 [CreateAssetMenu(menuName = "Skill/SkillData")]
 public class SkillData : ScriptableObject
 {
@@ -10,6 +10,9 @@ public class SkillData : ScriptableObject
     public float range;
     public float cooldown;
     public ElementType elementType;
+
+    public string description;
+
     public GameObject projectilePrefab;
 
     [NonSerialized]
