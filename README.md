@@ -30,9 +30,9 @@ public class EarthCommon : ISkillBehaviour
 
 뽑기 확률은 소환 레벨(1~5)에 따라 결정됨
 
-소환 레벨	Common	Rare	Hero	Legend	Ancient	Mythic
-Lv1	74.5%	20%	5%	0.5%	0%	0%
-Lv5	35.2%	45%	15%	4%	0.5%	0.3%
+소환 레벨	Common	Rare	Hero	Legend	Ancient	Mythic<br>
+Lv1	74.5%	20%	5%	0.5%	0%	0%<br>
+Lv5	35.2%	45%	15%	4%	0.5%	0.3%<br>
 
 ### 3. 스킬 쿨타임 시스템
 스택이 증가할수록 쿨타임 감소 (최대 3스택, 이후는 고정)
