@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public SkillUI skillUI;
     public ButtonUI buttonUI;
     public InformationUI informationUI;
+    public GameOverUI gameOverUI;
     private void Awake()
     {
         if (Instance == null)
@@ -37,6 +38,10 @@ public class UIManager : MonoBehaviour
         informationUI.UpdateSkillAmount();
         buttonUI.UpdateSkillCreateGold(requirementMoney);
     }
+    public void CreateLeveUIUpdate(int requirementUpgradeMoney)
+    {
+        buttonUI.UpdateCreateLevelUpgradeGold(requirementUpgradeMoney);
+    }
     public void Alarm(string text)
     {
         informationUI.Alarm(text);
@@ -53,5 +58,14 @@ public class UIManager : MonoBehaviour
     public void UpdateWaveTimer(string timeText)
     {
         informationUI.UpdateWaveTimer(timeText);
+    }
+
+    public void GameOver()
+    {
+        gameOverUI.gameObject.SetActive(true);
+        gameOverUI.playerCanvas.gameObject.SetActive(false);
+        informationUI.gameObject.SetActive(false);
+        skillUI.gameObject.SetActive(false);
+        buttonUI.gameObject.SetActive(false);
     }
 }

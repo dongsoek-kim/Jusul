@@ -52,9 +52,6 @@ public class SkillManager : MonoBehaviour
         skillCreatHandler = new SkillCreatHandler();
     }
 
-    private void Start()
-    {
-    }
     public ISkillBehaviour CreateBehaviour(Skill skill)
     {
         string className = $"{skill}";
@@ -99,6 +96,27 @@ public class SkillManager : MonoBehaviour
             IncreaseStack(newIndex);
             SkillAmount++;
             UIManager.Instance.SkillUIUdate(newIndex, activeSkillObjects[newIndex].Stack, skillCreatHandler.RequirementMoney);
+        }
+    }
+
+    public void UpgradeUpgradeSkillCreateLevel()
+    {
+        if(createLevel>=5)
+        {
+            UIManager.Instance.Alarm("최대 레벨입니다.");
+            return;
+        }
+        else if (GameManager.Instance.Money < skillCreatHandler.RequirementUpgradeMoney)
+        {
+            UIManager.Instance.Alarm("돈이 부족합니다.");
+            return;
+        }
+        else
+        {
+            createLevel++;
+            GameManager.Instance.UseMoney(skillCreatHandler.RequirementUpgradeMoney);
+            skillCreatHandler.AddRequirementUpgradeMoney();
+            UIManager.Instance.CreateLeveUIUpdate(skillCreatHandler.RequirementUpgradeMoney);
         }
     }
     public void IncreaseStack(int index)

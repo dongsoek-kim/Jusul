@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Player has died.");
+       GameManager.Instance.GameOver();
         // Add death logic here, such as playing an animation or respawning
     }
 }

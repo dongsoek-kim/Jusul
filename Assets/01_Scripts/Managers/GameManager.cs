@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     public int Money { get; private set; }// 게임 머니
     public Player player;
-    
+
     private float spawnTimer = 0f;
     private float TotalWaveTime = 20f; // 전체 웨이브 시간
     private float WaveTime = 0f; // 현재 웨이브 시간
@@ -44,10 +44,10 @@ public class GameManager : MonoBehaviour
         // 텍스트 포맷: 00:00 형식
         string timeText = $"00:{seconds:00}";
         UIManager.Instance.UpdateWaveTimer(timeText);
-        if (spawnTimer >= 2f)  
+        if (spawnTimer >= 2f)
         {
             PoolManager.Instance.Spawn<NormalMonster>("NormalMonster");
-            spawnTimer = 0f;  
+            spawnTimer = 0f;
         }
         if (WaveTime >= TotalWaveTime)
         {
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
 
     void GameStart()
     {
-        Money = 99999;
+        Money = 200;
     }
 
     public void UseMoney(int amount)
@@ -72,5 +72,12 @@ public class GameManager : MonoBehaviour
     {
         Money += amount;
         UIManager.Instance.UpdateMoneyText(Money);
+    }
+
+    public void GameOver()
+    {
+        UIManager.Instance.GameOver();
+        player.gameObject.SetActive(false);
+        Time.timeScale = 0f; // 게임 일시 정지
     }
 }

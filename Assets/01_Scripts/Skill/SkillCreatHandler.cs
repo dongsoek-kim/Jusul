@@ -19,6 +19,7 @@ public class SkillCreatHandler
     private int skillGrade;
 
     public int RequirementMoney { get; private set; } = 20;
+    public int RequirementUpgradeMoney { get; private set; } = 75; // 스킬 등급당 요구 금액 증가량
     private int maxSkillAmount = 25;
 
     public int SkillCreat()
@@ -66,5 +67,9 @@ public class SkillCreatHandler
     public void AddRequirementMoney()
     {
         RequirementMoney ++;
+    }
+    public void AddRequirementUpgradeMoney()
+    {
+        RequirementUpgradeMoney += 25;
     }
 }
